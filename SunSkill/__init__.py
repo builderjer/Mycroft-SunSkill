@@ -28,14 +28,12 @@ class SunSkill(MycroftSkill):
             require("DawnKeyword").build()
         dusk_intent = IntentBuilder("DuskIntent"). \
             require("DuskKeyword").build()
-        solarnoon_intent = IntentBuilder("SolarnoonIntent"). \
-            require("SolarnoonKeyword").build()
+        
 
         self.register_intent(sunrise_intent, self.handle_sunrise_intent)
         self.register_intent(sunset_intent, self.handle_sunset_intent)
         self.register_intent(dawn_intent, self.handle_dawn_intent)
         self.register_intent(dusk_intent, self.handle_dusk_intent)
-        self.register_intent(solarnoon_intent, self.handle_solarnoon_intent)
 
         today = arrow.now().date()
         self.localtz = tzlocal.get_localzone()
@@ -67,9 +65,6 @@ class SunSkill(MycroftSkill):
         dusk = self.schedule['dusk'].astimezone(self.localtz)
         self.speak_dialog("dusk", {"dusk": str(dusk)[10:16]})
 
-    def handle_solarnoon_intent(self, message):
-        solarnoon = self.schedule['noon'].astimezone(self.localtz)
-        self.speak_dialog("solarnoon", {"solarnoon": str(noon)[10:16]})
 
     def stop(self):
         pass
