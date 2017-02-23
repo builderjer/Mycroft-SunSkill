@@ -40,10 +40,14 @@ class SunSkill(MycroftSkill):
 
         
         city = self.config_core.get("location")
-        geolocator = Nominatim()
-        location = geolocator.geocode(city)
-        lat = location.latitude
-        lon = location.longitude
+        if isinstance(city, str): # city is city name
+            geolocator = Nominatim()
+            location = geolocator.geocode(city)
+            lat = location.latitude
+            lon = location.longitude
+        else: # city is a dict of location information
+            lat = city['coordinate']['latitude']
+            lon = city['coordinate']['longitude']
         
 
         sun = SolarTime()
