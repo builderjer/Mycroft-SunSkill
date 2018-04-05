@@ -11,9 +11,9 @@ __author__ = 'msev'
 class SunSkill(MycroftSkill):
     def __init__(self):
         super(SunSkill, self).__init__(name="SunSkill")
-        city = self.config_core.get("location")
+        city = self.settings.get("location", self.location)
         if isinstance(city, str):
-            # city is city name
+            # city is city name from settings
             geolocator = Nominatim()
             location = geolocator.geocode(city)
             self.lat = location.latitude
